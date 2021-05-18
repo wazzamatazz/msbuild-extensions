@@ -41,7 +41,17 @@ Copyright (c) 2021 Joe Bloggs
 
 # Setting Version Numbers
 
-The `AssemblyVersion`, `FileVersion`, `InformationalVersion`, and `Version` (i.e. package version) build parameters will be generated automatically if you specify the `VersionPropertiesInputFile` MSBuild parameter. The input file must be a JSON file that uses the following format:
+The `AssemblyVersion`, `FileVersion`, `InformationalVersion`, and `Version` (i.e. package version) build parameters will be generated and set automatically at build time if you specify a value for the `VersionPropertiesInputFile` MSBuild parameter. The input file must be a JSON file that uses the following format:
+
+```xml
+<!-- Example project file -->
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPropertiesInputFile>version.json</VersionPropertiesInputFile>
+  </PropertyGroup>
+</Project>
+```
 
 ```json
 // Example version.json file
@@ -84,9 +94,12 @@ This example shows the version numbers generated when building a release version
 ```xml
 <!-- MyProject.csproj -->
 
-<PropertyGroup>
-  <VersionPropertiesInputFile>build\version.json</VersionPropertiesInputFile>
-</PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPropertiesInputFile>build\version.json</VersionPropertiesInputFile>
+  </PropertyGroup>
+</Project>
 ```
 
 ```
@@ -123,9 +136,12 @@ This example shows the version numbers generated when building a pre-release ver
 ```xml
 <!-- MyProject.csproj -->
 
-<PropertyGroup>
-  <VersionPropertiesInputFile>build\version.json</VersionPropertiesInputFile>
-</PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPropertiesInputFile>build\version.json</VersionPropertiesInputFile>
+  </PropertyGroup>
+</Project>
 ```
 
 ```console
