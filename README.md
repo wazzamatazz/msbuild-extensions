@@ -49,7 +49,7 @@ The `AssemblyVersion`, `FileVersion`, `InformationalVersion`, and `Version` (i.e
     "Major": 3,
     "Minor": 1,
     "Patch": 7,
-    "PreRelease": "alpha" // Use "" if this is a release build
+    "PreRelease": "alpha"
 }
 ```
 
