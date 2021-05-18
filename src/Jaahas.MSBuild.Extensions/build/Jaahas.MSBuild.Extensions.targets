@@ -9,12 +9,18 @@
 
   <!-- Copyright property will only be set if CopyrightStartYear has been specified. -->
   <Target Name="SetCopyrightProperty" Condition=" '$(CopyrightStartYear)' != '' ">
-    <PropertyGroup Condition=" $([System.DateTime]::UtcNow.Year) > $(CopyrightStartYear) ">
-      <Copyright>Copyright © $(CopyrightStartYear)-$([System.DateTime]::UtcNow.Year) $(Authors)</Copyright>
+    <PropertyGroup>
+      <_CopyrightStartYearFinal>$([System.Text.RegularExpressions.Regex]::Match($(CopyrightStartYear), '^\d{4}$'))</_CopyrightStartYearFinal>
+      <_ShowCopyrightStartYearWarning Condition=" '$(_CopyrightStartYearFinal)' == '' ">true</_ShowCopyrightStartYearWarning>
+      <_CopyrightStartYearFinal Condition=" '$(_CopyrightStartYearFinal)' == '' ">$([System.DateTime]::UtcNow.Year)</_CopyrightStartYearFinal>
     </PropertyGroup>
-    <PropertyGroup Condition=" $([System.DateTime]::UtcNow.Year) &lt;= $(CopyrightStartYear) ">
-      <Copyright>Copyright © $(CopyrightStartYear) $(Authors)</Copyright>
+    <PropertyGroup Condition=" $([System.DateTime]::UtcNow.Year) > $(_CopyrightStartYearFinal) ">
+      <Copyright>Copyright © $(_CopyrightStartYearFinal)-$([System.DateTime]::UtcNow.Year) $(Authors)</Copyright>
     </PropertyGroup>
+    <PropertyGroup Condition=" $([System.DateTime]::UtcNow.Year) &lt;= $(_CopyrightStartYearFinal) ">
+      <Copyright>Copyright © $(_CopyrightStartYearFinal) $(Authors)</Copyright>
+    </PropertyGroup>
+    <Warning Condition=" '$(_ShowCopyrightStartYearWarning)' == 'true' " Text="'$(CopyrightStartYear)' is not a valid value for the 'CopyrightStartYear' MSBuild property. The current UTC year ($(_CopyrightStartYearFinal)) has been used instead."/>
   </Target>
 
   <!-- Version properties will only be set if VersionPropertiesInputFile has been specified. -->
