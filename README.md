@@ -19,10 +19,14 @@ message:
 
 Copyright (c) 2017-2021 Joe Bloggs
 -->
-<PropertyGroup>
-  <Authors>Joe Bloggs</Authors>
-  <CopyrightStartYear>2017</CopyrightStartYear>
-</PropertyGroup>
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Joe Bloggs</Authors>
+    <CopyrightStartYear>2017</CopyrightStartYear>
+  </PropertyGroup>
+</Project>
 ```
 
 ```xml
@@ -32,10 +36,14 @@ message:
 
 Copyright (c) 2021 Joe Bloggs
 -->
-<PropertyGroup>
-  <Authors>Joe Bloggs</Authors>
-  <CopyrightStartYear>2021</CopyrightStartYear>
-</PropertyGroup>
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Joe Bloggs</Authors>
+    <CopyrightStartYear>2021</CopyrightStartYear>
+  </PropertyGroup>
+</Project>
 ```
 
 
@@ -45,6 +53,7 @@ The `AssemblyVersion`, `FileVersion`, `InformationalVersion`, and `Version` (i.e
 
 ```xml
 <!-- Example project file -->
+
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -55,6 +64,7 @@ The `AssemblyVersion`, `FileVersion`, `InformationalVersion`, and `Version` (i.e
 
 ```json
 // Example version.json file
+
 {
     "Major": 3,
     "Minor": 1,
