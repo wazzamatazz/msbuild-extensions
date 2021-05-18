@@ -1,39 +1,158 @@
-# C# Repository Template
+# Jaahas.MSBuild.Extensions
 
-Repository template for a C# project.
+Contains MSBuild extensions for setting copyright information and version mumbers at build time.
 
-## Getting Started
 
-- Create a new repository on GitHub and choose this repository as the template, or click on the _"Use this template"_ button on the repository home page.
-- Rename the solution file in the root of the repository (`RENAME-ME.sln`).
-- Update `Directory.Build.props` in the root folder and replace the placeholder values in the shared project properties (e.g. `{{COMPANY_NAME}}`).
-- Update `build.cake` in the root folder and replace the `DefaultSolutionName` constant at the start of the file with the name of your solution file.
-- Create new library and application projects in the `src` folder.
-- Create test and benchmarking projects in the `test` folder.
-- Create example projects that demonstrate the library and application projects in the `samples` folder.
+# Getting Started
 
-## Repository Structure
+Add the `Jaahas.MSBuild.Extensions` NuGet package to your project.
 
-The repository is organised as follows:
 
-- `[root]`
-  - `.editorconfig` - Code style rules (see [here](https://editorconfig.org/) for details).
-  - `.gitattributes`
-  - `.gitignore`
-  - `build.cake` - [Cake](https://cakebuild.net/) script for building the projects.
-  - `build.ps1` - PowerShell script to bootstrap and run the Cake script.
-  - `Directory.Build.props` - Common MSBuild properties and targets (see [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build) for details).
-  - `Directory.Build.targets` - Common MSBuild properties and targets (see [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build) for details). 
-  - `README.md`
-  - `RENAME-ME.sln` - Visual Studio solution file.
-  - `[build]`
-    - `build-state.cake` - Additional build script.
-    - `build-utilities.cake` - Additional build script.
-    - `Dependencies.props` - Common NuGet package versions.
-    - `NetFX.targets` - Adds package references for building projects that target .NET Framework on non-Windows systems.
-    - `version.json` - Defines version numbers used when building the projects.
-  - `[samples]` - Example projects to demonstrate the usage of the repository libraries and applications.
-    - `Directory.Build.props` - Common MSBuild properties and targets related to example projects (see [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build) for details).
-  - `[src]` - Source code for repository libraries and applications.
-  - `[test]` - Test and benchmarking projects.
-    - `Directory.Build.props` - Common MSBuild properties and targets related to test projects (see [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build) for details).
+# Setting Copyright Information
+
+Copyright information will be set via the `Copyright` MSBuild property at build time, provided that the `CopyrightStartYear` property has been set. The `Authors` property will also be used in the generated copyright message. For example:
+
+```xml
+<!-- 
+Assuming that the current UTC year is 2021, sets the following copyright 
+message: 
+
+Copyright (c) 2017-2021 Joe Bloggs
+-->
+<PropertyGroup>
+  <Authors>Joe Bloggs</Authors>
+  <CopyrightStartYear>2017</CopyrightStartYear>
+</PropertyGroup>
+```
+
+```xml
+<!-- 
+Assuming that the current UTC year is 2021, sets the following copyright 
+message: 
+
+Copyright (c) 2021 Joe Bloggs
+-->
+<PropertyGroup>
+  <Authors>Joe Bloggs</Authors>
+  <CopyrightStartYear>2021</CopyrightStartYear>
+</PropertyGroup>
+```
+
+
+# Setting Version Numbers
+
+The `AssemblyVersion`, `FileVersion`, `InformationalVersion`, and `Version` (i.e. package version) build parameters will be generated automatically if you specify the `VersionPropertiesInputFile` MSBuild parameter. The input file must be a JSON file that uses the following format:
+
+```json
+// Example version.json file
+{
+    "Major": 3,
+    "Minor": 1,
+    "Patch": 7,
+    "PreRelease": "alpha" // Use "" if this is a release build
+}
+```
+
+
+### Additional Build Metadata
+
+The following build properties are used in addition to the `version.json` file:
+
+- `BranchName`: VCS branch name, used in the informational version.
+- `BuildCounter`: CI build counter, used as the revision version number.
+- `BuildMetadata`: Additional build metadata, used in the informational version.
+- `ContinuousIntegrationBuild`: When `false`, the build metadata will also include `unofficial` to indicate that the project was built locally instead of with a CI system.
+
+
+### Example 1: Release Build via Continuous Integration System
+
+This example shows the version numbers generated when building a release version of a project (i.e. without a pre-release version suffix) on a continuous integration system.
+
+```json
+// build\version.json
+
+{
+    "Major": 3,
+    "Minor": 1,
+    "Patch": 7,
+    "PreRelease": ""
+}
+```
+
+```xml
+<!-- MyProject.csproj -->
+
+<PropertyGroup>
+  <VersionPropertiesInputFile>build\version.json</VersionPropertiesInputFile>
+</PropertyGroup>
+```
+
+```
+# Command Line
+
+msbuild MyProject.csproj /p:BranchName=main /p:BuildCounter=1138 /p:ContinuousIntegrationBuild=true
+```
+
+```
+# Generated Version Numbers
+
+AssemblyVersion      = 3.1.0.0
+FileVersion          = 3.1.7.1138
+InformationalVersion = 3.1.7.1138+main
+Version              = 3.1.7
+```
+
+
+### Example 2: Local Pre-Release Build
+
+This example shows the version numbers generated when building a pre-release version of a project (i.e. with a pre-release version suffix) in a local development environment.
+
+```json
+// build\version.json
+
+{
+    "Major": 4,
+    "Minor": 0,
+    "Patch": 1,
+    "PreRelease": "alpha"
+}
+```
+
+```xml
+<!-- MyProject.csproj -->
+
+<PropertyGroup>
+  <VersionPropertiesInputFile>build\version.json</VersionPropertiesInputFile>
+</PropertyGroup>
+```
+
+```console
+# Command Line
+
+msbuild MyProject.csproj /p:BranchName=main /p:BuildCounter=2217
+```
+
+```console
+# Generated Version Numbers
+
+AssemblyVersion      = 4.0.0.0
+FileVersion          = 4.0.1.2217
+InformationalVersion = 4.0.1-alpha.2217+main#unofficial
+Version              = 4.0.1-alpha.2217
+```
+
+
+# Building From Source
+
+To build from source, run [build.ps1](/build.ps1) from a PowerShell prompt. Build is performed using [Cake](https://cakebuild.net). See [build.cake](/build.cake) for more information about available command-line switches.
+
+
+### Release Build
+
+To perform a release build, ensure that you specify the `--ci` flag when calling [build.ps1](/build.ps1) e.g.
+
+```shell
+.\build.ps1 --configuration Release --ci
+```
+
+The generated NuGet package can be found in the `artifacts/Packages/Release` folder.

@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;netstandard2.0</TargetFrameworks>
+    <Description>MSBuild tasks for setting copyright information, and generating assembly, file, informational and package versions for a project at build time based on a JSON file and build properties.</Description>
+    <IsTool>true</IsTool>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <NuSpecFile>Jaahas.MSBuild.Extensions.nuspec</NuSpecFile>
+    <NoWarn>$(NoWarn);NU1702</NoWarn>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(ContinuousIntegrationBuild)' != 'true' ">
+    <VersionSuffix Condition=" '$(VersionSuffix)' == '' ">build.$([System.DateTime]::UtcNow.ToString('yyyyMMddHHmm'))</VersionSuffix>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\Jaahas.MSBuild.VersionProperties.Tool\BuildMetadataValidator.cs" Link="BuildMetadataValidator.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Framework" Version="16.9.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.9.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jaahas.MSBuild.VersionProperties.Tool\Jaahas.MSBuild.VersionProperties.Tool.csproj">
+      <PrivateAssets>all</PrivateAssets>
+      <ExcludeAssets>all</ExcludeAssets>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+
+  <Target Name="SetPackageProperties" BeforeTargets="GenerateNuspec">
+    <PropertyGroup>
+      <NuspecProperties>
+        $(NuspecProperties);
+        id=$(PackageId);
+        version=$(Version);
+        description=$(Description);
+        authors=$(Authors);
+        owners=$(Company);
+        copyright=$(Copyright);
+        licence_expression=$(PackageLicenseExpression);
+        output=bin\$(Configuration)\$(TargetFramework);
+        tool_output=..\Jaahas.MSBuild.VersionProperties.Tool\bin\$(Configuration);
+      </NuspecProperties>
+    </PropertyGroup>
+  </Target>
+
+</Project>

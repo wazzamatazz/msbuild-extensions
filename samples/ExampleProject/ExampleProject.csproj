@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <BranchName>main</BranchName>
+    <BuildCounter>$([System.DateTime]::UtcNow.ToString('yyMMddHHmm'))</BuildCounter>
+    <BuildMetadata>example-metadata</BuildMetadata>
+    <CopyrightStartYear>2015</CopyrightStartYear>
+    <VersionPropertiesInputFile>version.json</VersionPropertiesInputFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Jaahas.MSBuild.Extensions" Version="1.0.0-build.*" />
+  </ItemGroup>
+
+</Project>

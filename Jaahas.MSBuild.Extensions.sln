@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10A2813D-C970-4F6F-9A59-94F7C972257F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C4C50D71-6AAC-45A9-9257-5D02A42B61DC}"
+	ProjectSection(SolutionItems) = preProject
+		build\Dependencies.props = build\Dependencies.props
+		build\NetFX.targets = build\NetFX.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{0390FA5C-0123-44B7-A7E9-794A9582CD41}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jaahas.MSBuild.VersionProperties.Tool", "src\Jaahas.MSBuild.VersionProperties.Tool\Jaahas.MSBuild.VersionProperties.Tool.csproj", "{B5FFBFAA-7D74-4D0C-8E44-B6A29CBD5860}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jaahas.MSBuild.Extensions", "src\Jaahas.MSBuild.Extensions\Jaahas.MSBuild.Extensions.csproj", "{E3A79ED0-BD02-40D7-90A1-37F46857F914}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5FFBFAA-7D74-4D0C-8E44-B6A29CBD5860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5FFBFAA-7D74-4D0C-8E44-B6A29CBD5860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5FFBFAA-7D74-4D0C-8E44-B6A29CBD5860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5FFBFAA-7D74-4D0C-8E44-B6A29CBD5860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3A79ED0-BD02-40D7-90A1-37F46857F914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A79ED0-BD02-40D7-90A1-37F46857F914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3A79ED0-BD02-40D7-90A1-37F46857F914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3A79ED0-BD02-40D7-90A1-37F46857F914}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B5FFBFAA-7D74-4D0C-8E44-B6A29CBD5860} = {10A2813D-C970-4F6F-9A59-94F7C972257F}
+		{E3A79ED0-BD02-40D7-90A1-37F46857F914} = {10A2813D-C970-4F6F-9A59-94F7C972257F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94DF2EE3-033D-46CD-9EC3-7BC808B13372}
+	EndGlobalSection
+EndGlobal

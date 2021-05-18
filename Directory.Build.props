@@ -10,13 +10,13 @@
   <Import Project=".\build\Dependencies.props" Condition="Exists('.\build\Dependencies.props')" />
 
   <PropertyGroup>
-    <Authors>{{AUTHORS}}</Authors>
-    <Company>{{COMPANY_NAME}}</Company>
-    <PackageProjectUrl>https://github.com/{{GITHUB_USERNAME}}/{{REPO_NAME}}</PackageProjectUrl>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Authors>Graham Watts</Authors>
+    <PackageProjectUrl>https://github.com/wazzamatazz/msbuild-version-properties</PackageProjectUrl>
     <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts\packages\$(Configuration)</PackageOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
-    <CopyrightStartYear>{{COPYRIGHT_START_YEAR}}</CopyrightStartYear>
+    <CopyrightStartYear>2021</CopyrightStartYear>
   </PropertyGroup>
 
   <Choose>

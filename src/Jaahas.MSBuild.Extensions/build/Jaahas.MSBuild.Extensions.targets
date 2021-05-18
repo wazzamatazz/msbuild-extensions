@@ -1,0 +1,47 @@
+﻿<Project>
+  <PropertyGroup>
+    <BuildDependsOn>
+      SetCopyrightProperty;
+      SetVersionProperties;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+
+  <!-- Copyright property will only be set if CopyrightStartYear has been specified. -->
+  <Target Name="SetCopyrightProperty" Condition=" '$(CopyrightStartYear)' != '' ">
+    <PropertyGroup Condition=" $([System.DateTime]::UtcNow.Year) > $(CopyrightStartYear) ">
+      <Copyright>Copyright © $(CopyrightStartYear)-$([System.DateTime]::UtcNow.Year) $(Authors)</Copyright>
+    </PropertyGroup>
+    <PropertyGroup Condition=" $([System.DateTime]::UtcNow.Year) &lt;= $(CopyrightStartYear) ">
+      <Copyright>Copyright © $(CopyrightStartYear) $(Authors)</Copyright>
+    </PropertyGroup>
+  </Target>
+
+  <!-- Version properties will only be set if VersionPropertiesInputFile has been specified. -->
+  <Target Name="SetVersionProperties" Condition=" '$(VersionPropertiesInputFile)' != '' ">
+    <PropertyGroup>
+      <VersionPropertiesExeLocation Condition=" '$(MSBuildRuntimeType)' == 'Core' ">$(MSBuildThisFileDirectory)\..\tools\netcoreapp3.1\</VersionPropertiesExeLocation>
+      <VersionPropertiesExeLocation Condition=" '$(MSBuildRuntimeType)' != 'Core' ">$(MSBuildThisFileDirectory)\..\tools\net472\</VersionPropertiesExeLocation>
+      <VersionPropertiesOutputFile Condition=" '$(VersionPropertiesOutputFile)' == '' ">$(IntermediateOutputPath)Versions.props</VersionPropertiesOutputFile>
+      <BuildCounter Condition=" '$(BuildCounter)' == '' ">0</BuildCounter>
+    </PropertyGroup>
+
+    <SetVersionProperties
+      ExeLocation="$(VersionPropertiesExeLocation)"
+      InputFile="$(VersionPropertiesInputFile)"
+      OutputFile="$(VersionPropertiesOutputFile)"
+      BranchName="$(BranchName)"
+      BuildCounter="$(BuildCounter)"
+      BuildMetadata="$(BuildMetadata)">
+      <Output TaskParameter="AssemblyVersion" PropertyName="AssemblyVersion" />
+      <Output TaskParameter="FileVersion" PropertyName="FileVersion" />
+      <Output TaskParameter="InformationalVersion" PropertyName="InformationalVersion" />
+      <Output TaskParameter="PackageVersion" PropertyName="Version" />
+    </SetVersionProperties>
+
+    <Message Text="Assembly Version: $(AssemblyVersion)" Importance="normal"/>
+    <Message Text="File Version: $(FileVersion)" Importance="normal"/>
+    <Message Text="Informational Version: $(InformationalVersion)" Importance="normal"/>
+    <Message Text="Package Version: $(PackageVersion)" Importance="normal"/>
+  </Target>
+</Project>

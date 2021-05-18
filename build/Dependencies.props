@@ -15,7 +15,6 @@
     <BenchmarkDotNetVersion>0.12.1</BenchmarkDotNetVersion>
     <MicrosoftCodeAnalysisNetAnalyzersVersion>5.0.3</MicrosoftCodeAnalysisNetAnalyzersVersion>
     <MicrosoftNETTestSdkVersion>16.9.4</MicrosoftNETTestSdkVersion>
-    <MicrosoftSourceLinkGitHubVersion>1.0.0</MicrosoftSourceLinkGitHubVersion>
     <MSTestTestAdapterVersion>2.2.3</MSTestTestAdapterVersion>
     <MSTestTestFrameworkVersion>2.2.3</MSTestTestFrameworkVersion>
   </PropertyGroup>

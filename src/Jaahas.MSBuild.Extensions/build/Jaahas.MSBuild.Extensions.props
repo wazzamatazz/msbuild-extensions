@@ -1,0 +1,8 @@
+﻿<Project>
+  <PropertyGroup>
+    <_VersionPropsTaskAssembly Condition=" '$(MSBuildRuntimeType)' == 'Core' ">$(MSBuildThisFileDirectory)\..\tools\netstandard2.0\Jaahas.MSBuild.VersionProperties.dll</_VersionPropsTaskAssembly>
+    <_VersionPropsTaskAssembly Condition=" '$(MSBuildRuntimeType)' != 'Core' ">$(MSBuildThisFileDirectory)\..\tools\net472\Jaahas.MSBuild.VersionProperties.dll</_VersionPropsTaskAssembly>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(_VersionPropsTaskAssembly)" TaskName="Jaahas.MSBuild.VersionProperties.SetVersionProperties" />
+</Project>
