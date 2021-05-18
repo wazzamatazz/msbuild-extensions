@@ -40,6 +40,7 @@
         authors=$(Authors);
         owners=$(Company);
         copyright=$(Copyright);
+        project_url=$(PackageProjectUrl);
         licence_expression=$(PackageLicenseExpression);
         output=bin\$(Configuration)\$(TargetFramework);
         tool_output=..\Jaahas.MSBuild.VersionProperties.Tool\bin\$(Configuration);

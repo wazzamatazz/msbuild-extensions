@@ -10,9 +10,9 @@
   <Import Project=".\build\Dependencies.props" Condition="Exists('.\build\Dependencies.props')" />
 
   <PropertyGroup>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>1.0.1</VersionPrefix>
     <Authors>Graham Watts</Authors>
-    <PackageProjectUrl>https://github.com/wazzamatazz/msbuild-version-properties</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/wazzamatazz/msbuild-extensions</PackageProjectUrl>
     <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts\packages\$(Configuration)</PackageOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>

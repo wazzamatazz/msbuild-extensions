@@ -9,6 +9,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <copyright>$copyright$</copyright>
     <license type="expression">$licence_expression$</license>
+    <projectUrl>$project_url$</projectUrl>
   </metadata>
   <files>
     <file src="_._" target="lib/net45/" />
