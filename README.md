@@ -183,4 +183,4 @@ To perform a release build, ensure that you specify the `--clean` and `--ci` fla
 .\build.ps1 --configuration Release --clean --ci
 ```
 
-The generated NuGet package can be found in the `artifacts/Packages/Release` folder.
+The generated NuGet package can be found in the `artifacts/packages/Release` folder.
