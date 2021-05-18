@@ -26,8 +26,8 @@
   <!-- Version properties will only be set if VersionPropertiesInputFile has been specified. -->
   <Target Name="SetVersionProperties" Condition=" '$(VersionPropertiesInputFile)' != '' ">
     <PropertyGroup>
-      <VersionPropertiesExeLocation Condition=" '$(MSBuildRuntimeType)' == 'Core' ">$(MSBuildThisFileDirectory)\..\tools\netcoreapp3.1\</VersionPropertiesExeLocation>
-      <VersionPropertiesExeLocation Condition=" '$(MSBuildRuntimeType)' != 'Core' ">$(MSBuildThisFileDirectory)\..\tools\net472\</VersionPropertiesExeLocation>
+      <VersionPropertiesExeLocation Condition=" '$(MSBuildRuntimeType)' == 'Core' ">$(MSBuildThisFileDirectory)..\tools\netcoreapp3.1\</VersionPropertiesExeLocation>
+      <VersionPropertiesExeLocation Condition=" '$(MSBuildRuntimeType)' != 'Core' ">$(MSBuildThisFileDirectory)..\tools\net472\</VersionPropertiesExeLocation>
       <VersionPropertiesOutputFile Condition=" '$(VersionPropertiesOutputFile)' == '' ">$(IntermediateOutputPath)Versions.props</VersionPropertiesOutputFile>
       <BuildCounter Condition=" '$(BuildCounter)' == '' ">0</BuildCounter>
     </PropertyGroup>
