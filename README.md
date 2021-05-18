@@ -53,6 +53,8 @@ The `AssemblyVersion`, `FileVersion`, `InformationalVersion`, and `Version` (i.e
 }
 ```
 
+> **NOTE:** Specify `""` for the `PreRelease` property in the JSON file when performing a release build!
+
 
 ### Additional Build Metadata
 
