@@ -177,10 +177,10 @@ To build from source, run [build.ps1](/build.ps1) from a PowerShell prompt. Buil
 
 ### Release Build
 
-To perform a release build, ensure that you specify the `--ci` flag when calling [build.ps1](/build.ps1) e.g.
+To perform a release build, ensure that you specify the `--clean` and `--ci` flags when calling [build.ps1](/build.ps1) e.g.
 
 ```shell
-.\build.ps1 --configuration Release --ci
+.\build.ps1 --configuration Release --clean --ci
 ```
 
 The generated NuGet package can be found in the `artifacts/Packages/Release` folder.
