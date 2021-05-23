@@ -1,14 +1,31 @@
 ﻿<Project>
   <PropertyGroup>
     <BuildDependsOn>
-      SetCopyrightProperty;
-      SetVersionProperties;
-      $(BuildDependsOn)
+      SetCopyrightAndVersion;
+      $(BuildDependsOn);
     </BuildDependsOn>
+    <GenerateNuspecDependsOn>
+      SetCopyrightAndVersion;
+      $(GenerateNuspecDependsOn);
+    </GenerateNuspecDependsOn>
+    <PackDependsOn>
+      SetCopyrightAndVersion;
+      $(PackDependsOn);
+    </PackDependsOn>
   </PropertyGroup>
 
-  <!-- Copyright property will only be set if CopyrightStartYear has been specified. -->
-  <Target Name="SetCopyrightProperty" Condition=" '$(CopyrightStartYear)' != '' ">
+  <Target Name="SetCopyrightAndVersion">
+    <!-- Copyright property will only be set if CopyrightStartYear has been specified. -->
+    <CallTarget Targets="_SetCopyrightProperty" Condition =" '$(CopyrightStartYear)' != '' And '$(_SetCopyrightAndVersionWasRun)' != 'true' " />
+    <!-- Version properties will only be set if VersionPropertiesInputFile has been specified. -->
+    <CallTarget Targets="_SetVersionProperties" Condition =" '$(VersionPropertiesInputFile)' != '' And '$(_SetCopyrightAndVersionWasRun)' != 'true' " />
+
+    <PropertyGroup>
+      <_SetCopyrightAndVersionWasRun>true</_SetCopyrightAndVersionWasRun>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="_SetCopyrightProperty">
     <PropertyGroup>
       <_CopyrightStartYearFinal>$([System.Text.RegularExpressions.Regex]::Match($(CopyrightStartYear), '^\d{4}$'))</_CopyrightStartYearFinal>
       <_ShowCopyrightStartYearWarning Condition=" '$(_CopyrightStartYearFinal)' == '' ">true</_ShowCopyrightStartYearWarning>
@@ -23,8 +40,7 @@
     <Warning Condition=" '$(_ShowCopyrightStartYearWarning)' == 'true' " Text="'$(CopyrightStartYear)' is not a valid value for the 'CopyrightStartYear' MSBuild property. The current UTC year ($(_CopyrightStartYearFinal)) has been used instead."/>
   </Target>
 
-  <!-- Version properties will only be set if VersionPropertiesInputFile has been specified. -->
-  <Target Name="SetVersionProperties" Condition=" '$(VersionPropertiesInputFile)' != '' ">
+  <Target Name="_SetVersionProperties">
     <PropertyGroup>
       <VersionPropertiesExeLocation Condition=" '$(MSBuildRuntimeType)' == 'Core' ">$(MSBuildThisFileDirectory)..\tools\netcoreapp3.1\</VersionPropertiesExeLocation>
       <VersionPropertiesExeLocation Condition=" '$(MSBuildRuntimeType)' != 'Core' ">$(MSBuildThisFileDirectory)..\tools\net472\</VersionPropertiesExeLocation>
@@ -42,12 +58,13 @@
       <Output TaskParameter="AssemblyVersion" PropertyName="AssemblyVersion" />
       <Output TaskParameter="FileVersion" PropertyName="FileVersion" />
       <Output TaskParameter="InformationalVersion" PropertyName="InformationalVersion" />
+      <Output TaskParameter="PackageVersion" PropertyName="PackageVersion" />
       <Output TaskParameter="PackageVersion" PropertyName="Version" />
     </SetVersionProperties>
 
-    <Message Text="Assembly Version: $(AssemblyVersion)" Importance="normal"/>
-    <Message Text="File Version: $(FileVersion)" Importance="normal"/>
-    <Message Text="Informational Version: $(InformationalVersion)" Importance="normal"/>
-    <Message Text="Package Version: $(PackageVersion)" Importance="normal"/>
+    <Message Text="Assembly Version: $(AssemblyVersion)" Importance="high"/>
+    <Message Text="File Version: $(FileVersion)" Importance="high"/>
+    <Message Text="Informational Version: $(InformationalVersion)" Importance="high"/>
+    <Message Text="Package Version: $(PackageVersion)" Importance="high"/>
   </Target>
 </Project>
