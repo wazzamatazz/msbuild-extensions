@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Jaahas.MSBuild.Extensions" Version="1.0.3-build.*" />
+    <PackageReference Include="Jaahas.MSBuild.Extensions" Version="1.0.4-build.*" />
   </ItemGroup>
 
 </Project>

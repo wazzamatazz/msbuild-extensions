@@ -62,9 +62,9 @@
       <Output TaskParameter="PackageVersion" PropertyName="Version" />
     </SetVersionProperties>
 
-    <Message Text="Assembly Version: $(AssemblyVersion)" Importance="high"/>
-    <Message Text="File Version: $(FileVersion)" Importance="high"/>
-    <Message Text="Informational Version: $(InformationalVersion)" Importance="high"/>
-    <Message Text="Package Version: $(PackageVersion)" Importance="high"/>
+    <Message Text="Assembly Version: $(AssemblyVersion)" Importance="normal"/>
+    <Message Text="File Version: $(FileVersion)" Importance="normal"/>
+    <Message Text="Informational Version: $(InformationalVersion)" Importance="normal"/>
+    <Message Text="Package Version: $(PackageVersion)" Importance="normal"/>
   </Target>
 </Project>
